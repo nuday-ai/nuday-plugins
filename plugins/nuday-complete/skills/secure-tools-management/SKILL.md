@@ -88,7 +88,12 @@ until the tool behaves correctly.
 - **System tools**: cannot be modified or deleted.
 
 ## Tenancy
-`nuday_create_secure_tool` uses your active tenancy; if you belong to several
-(or use a platform-admin key) pass `tenant_id` — a tenancy you belong to
-(`nuday_whoami` lists them). Tool source is returned, but credentials never
-are: reference secrets by name, never inline them.
+Call `nuday_whoami` once (or read the connect-time instructions) for your
+`principal_kind`: `single_tenancy` and `tenant_pinned` never pass `tenant_id`;
+`multi_tenancy` passes `tenant_id` on `nuday_create_secure_tool` only;
+`platform_admin` always passes `tenant_id` on creates and may pass it to scope
+`nuday_list_secure_tools` (rows carry `tenant_id`/`tenant_name`), finding ids
+with `nuday_tenancies_list(query=…)`. On a "tenant_id is not needed" error drop
+the argument; on "not a tenancy you can access" pick one of the listed ids.
+Tool source is returned, but credentials never are: reference secrets by
+name, never inline them.

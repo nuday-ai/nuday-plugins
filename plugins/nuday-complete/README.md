@@ -101,7 +101,13 @@ the browser/PKCE flow above instead.
   organization `(chosen at sign-in)`.
 - Root-level native manifests for Claude Code, Codex, and Cursor.
 - OAuth-first and API-key configuration examples, including stable and v2
-  OpenCode forms. Copy `skills/*` into an
+  OpenCode forms. The API-key forms send no tenant header: the connect-time
+  instructions / `nuday_whoami` report the agent's `principal_kind`
+  (`tenant_pinned` and `single_tenancy` never pass `tenant_id`; `multi_tenancy`
+  passes it on create tools; `platform_admin` sees cross-tenancy rows with
+  `tenant_id`/`tenant_name` and passes `tenant_id` to scope lists and on
+  creates — ids from `nuday_tenancies_list(query=<name>)`). Nothing is
+  remembered between calls. Copy `skills/*` into an
   OpenCode-discovered skills directory such as `.opencode/skills/` or
   `~/.config/opencode/skills/`.
 

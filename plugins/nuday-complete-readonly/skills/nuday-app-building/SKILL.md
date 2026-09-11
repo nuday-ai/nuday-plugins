@@ -66,7 +66,10 @@ to the internet on 80/443 plus its own datastore on 5432.
 Call `list_workspaces`. Use the **tenant** workspace for team apps (visible to
 the tenancy); use a **personal** workspace for private apps. Note its
 `workspace_id`. Tenancy is derived from that workspace, so no `X-Tenant-Id`
-header is needed; `nuday_whoami` shows your tenancies if a call asks for one.
+header is needed; if a call asks for one, `nuday_whoami` gives your
+`principal_kind` (`single_tenancy`/`tenant_pinned`: never pass `tenant_id`;
+`multi_tenancy`/`platform_admin`: pass it, finding ids with
+`nuday_tenancies_list(query=…)`).
 
 ### 2. Check for an existing app
 Call `nuday_list_apps` (optionally with `query`). App names are unique per

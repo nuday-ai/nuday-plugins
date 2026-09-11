@@ -69,6 +69,9 @@ delete; system knowledge bases cannot be deleted.
 - Confirm `status: ready` before relying on retrieval.
 
 ## Tenancy
-`nuday_create_knowledge_base` also accepts `tenant_id` (a tenancy you belong
-to; `nuday_whoami` lists them) when you have no active tenancy, and
+`nuday_create_knowledge_base` also accepts `tenant_id`: `nuday_whoami` gives
+your `principal_kind` — `single_tenancy` and `tenant_pinned` never pass it,
+`multi_tenancy` and `platform_admin` pass it on creates (ids from
+`nuday_tenancies_list(query=…)`; on "tenant_id is not needed" drop it, on "not a
+tenancy you can access" pick a listed id) — and
 `embedding_entity_id` to pin the embedding backend/provider it resolves.

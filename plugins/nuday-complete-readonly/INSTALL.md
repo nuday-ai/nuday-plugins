@@ -99,6 +99,27 @@ For Claude Code that means swapping the `mcpServers` reference in
 server from that file with `claude mcp add-json`. Never put the key's value
 into this plugin directory or share it with the AI.
 
+The API-key manifests carry no `X-Tenant-Id` header. On connect the server's
+`initialize` instructions (and `nuday_whoami`) tell the agent its
+`principal_kind`:
+
+- `tenant_pinned` — the key (or the OAuth consent) is bound to one tenancy;
+  never pass `tenant_id` (it is accepted only when it equals that tenancy).
+- `single_tenancy` — your only membership is resolved automatically; never
+  pass `tenant_id`.
+- `multi_tenancy` — pass `tenant_id` on create tools only (ids from
+  `nuday_tenancies_list(query=<name>)`), or add an `X-Tenant-Id` header to the
+  manifest to pin one tenancy for the client.
+- `platform_admin` — lists span every tenancy and each row carries
+  `tenant_id`/`tenant_name`; pass `tenant_id` to scope a list and always on
+  create tools.
+
+Nothing is remembered between calls. A wrong `tenant_id` returns an error
+that names your `principal_kind` and the exact retry: on "tenant_id is not
+needed" drop the argument; on "not a tenancy you can access" pick one of the
+listed ids; on "does not exist" search with `nuday_tenancies_list`.
+`av auth tenant <id>` pins the CLI profile the same way a header does.
+
 - No sign-in prompt: open the client's MCP authentication controls; check that
   the plugin/server is enabled and that an API key is not overriding OAuth.
 - Repeated login failure: confirm the Manager deployment includes the OAuth
@@ -106,6 +127,12 @@ into this plugin directory or share it with the AI.
 - Organization access denied: select the organization in the downloaded package
   and confirm your current membership. A different tenant header cannot change
   an existing grant. Reauthorize after switching packages.
+- "A tenancy is required": you are `multi_tenancy` or `platform_admin` and the
+  call named no tenancy. Find the id with `nuday_tenancies_list(query=<name>)`
+  (or `nuday_whoami`), then pass it as `tenant_id` — or pin it with an
+  `X-Tenant-Id` header in the manifest.
+- "tenant_id is not needed": you are `single_tenancy` or `tenant_pinned` —
+  drop the argument and retry.
 - Writes unavailable: check whether you installed the read-only variant.
 - Duplicate tools: remove duplicate manual MCP entries when enabling the plugin.
 
