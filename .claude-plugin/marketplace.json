@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "nuday",
+  "owner": {
+    "name": "NuDay",
+    "url": "https://nuday.ai"
+  },
+  "description": "NuDay platform plugins for coding assistants.",
+  "version": "1.0.1",
+  "plugins": [
+    {
+      "name": "nuday-complete",
+      "description": "NuDay Complete: every public platform skill plus the complete MCP toolset.",
+      "version": "1.0.1",
+      "source": "./plugins/nuday-complete"
+    },
+    {
+      "name": "nuday-complete-readonly",
+      "description": "NuDay Complete (read-only): the skill catalog with read-only MCP tools.",
+      "version": "1.0.1",
+      "source": "./plugins/nuday-complete-readonly"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "nuday-complete-readonly",
+  "version": "1.0.1",
+  "description": "Inspect NuDay resources with read-only MCP tools and the public skill catalog.",
+  "author": {
+    "name": "NuDay"
+  },
+  "homepage": "https://nuday.ai",
+  "keywords": [
+    "nuday",
+    "agents",
+    "mcp",
+    "agent-skills"
+  ],
+  "skills": "./skills/"
+}

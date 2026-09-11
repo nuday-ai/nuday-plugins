@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "nuday-complete": {
+      "type": "remote",
+      "url": "https://app.nuday.ai/mcp/complete",
+      "oauth": {},
+      "enabled": true
+    }
+  }
+}

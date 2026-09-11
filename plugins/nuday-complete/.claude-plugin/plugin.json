@@ -1,0 +1,17 @@
+{
+  "name": "nuday-complete",
+  "version": "1.0.1",
+  "description": "Build, test, deploy, and operate on NuDay with the complete platform skill catalog and aggregate MCP server.",
+  "author": {
+    "name": "NuDay"
+  },
+  "homepage": "https://nuday.ai",
+  "keywords": [
+    "nuday",
+    "agents",
+    "mcp",
+    "agent-skills"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./claude-mcp.json"
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "nuday-complete": {
+      "type": "http",
+      "url": "https://app.nuday.ai/mcp/complete",
+      "oauth": {
+        "scopes": "mcp:tools"
+      }
+    }
+  }
+}

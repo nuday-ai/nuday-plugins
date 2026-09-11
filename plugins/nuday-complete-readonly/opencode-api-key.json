@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "nuday-complete-readonly": {
+      "type": "remote",
+      "url": "https://app.nuday.ai/mcp/complete-readonly",
+      "oauth": false,
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer {env:NUDAY_API_KEY}"
+      }
+    }
+  }
+}

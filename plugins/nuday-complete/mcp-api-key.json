@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "nuday-complete": {
+      "url": "https://app.nuday.ai/mcp/complete",
+      "headers": {
+        "Authorization": "Bearer ${env:NUDAY_API_KEY}"
+      }
+    }
+  }
+}

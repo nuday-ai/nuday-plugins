@@ -1,0 +1,41 @@
+{
+  "name": "nuday-complete",
+  "version": "1.0.1",
+  "description": "Build, test, deploy, and operate on NuDay with the complete platform skill catalog and aggregate MCP server.",
+  "author": {
+    "name": "NuDay"
+  },
+  "homepage": "https://nuday.ai",
+  "keywords": [
+    "nuday",
+    "agents",
+    "mcp",
+    "agent-skills"
+  ],
+  "skills": "./skills/",
+  "mcpServers": {
+    "nuday-complete": {
+      "type": "http",
+      "url": "https://app.nuday.ai/mcp/complete",
+      "auth": "oauth",
+      "bearer_token_env_var": "NUDAY_API_KEY"
+    }
+  },
+  "interface": {
+    "displayName": "NuDay Complete",
+    "shortDescription": "NuDay skills and the complete MCP toolset.",
+    "longDescription": "Create and manage agents, skills, tools, apps, evaluations, workspaces, knowledge bases, and connected services through NuDay.",
+    "developerName": "NuDay",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://nuday.ai",
+    "defaultPrompt": [
+      "Build and test a production-ready NuDay agent.",
+      "Create and deploy an app on NuDay.",
+      "Show me what I can manage in NuDay."
+    ]
+  }
+}
