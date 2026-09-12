@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "nuday-complete",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Build, test, deploy, and operate on NuDay with the complete platform skill catalog and aggregate MCP server.",
   "author": {
     "name": "NuDay"
