@@ -36,17 +36,19 @@ See [Claude plugin loading](https://code.claude.com/docs/en/plugins) and
 
 ## Codex
 
-1. In a Codex version offering local plugin import/upload, import the ZIP through
-   its plugin controls. Workspace policy may require an administrator to make it
-   available first. Do not copy it into an arbitrary directory and assume it is
-   installed.
-2. Enable the plugin, then use the MCP server's authentication control. For an
-   explicitly configured CLI server, `codex mcp login <server-name>` starts OAuth;
-   use the name actually listed by your installation.
+1. Add the public marketplace: `codex plugin marketplace add nuday-ai/nuday-plugins`,
+   then enable **NuDay Complete** (or **NuDay Complete (read-only)**) from the
+   Plugin Directory. NuDay Desktop can do this for you from its Extensions page.
+2. The manifest points Codex at `codex-mcp.json`, which registers the NuDay MCP
+   server for browser sign-in. Use the server's **Authenticate** control, or run
+   `codex mcp login nuday-complete` if it does not prompt.
 3. Confirm NuDay tools and skills are available in a new task.
 
-Local import UI differs by release; this package does not include a marketplace.
-See [OpenAI plugin guidance](https://learn.chatgpt.com/docs/plugins) and
+Codex reads `mcpServers` in `.codex-plugin/plugin.json` only as a path to a
+servers file, so the server itself lives in `codex-mcp.json` with Codex's own
+keys (`url`, `http_headers`, `bearer_token_env_var`). For an unattended
+setup, register `codex-mcp-api-key.json` instead: it names `NUDAY_API_KEY` as
+the bearer token variable. See
 [Codex MCP configuration](https://developers.openai.com/codex/mcp).
 
 ## Cursor
@@ -92,7 +94,7 @@ at the `*-api-key.json` file that replaces the OAuth one:
 | Claude Code | `claude-mcp.json` | `claude-mcp-api-key.json` |
 | Cursor | `mcp.json` | `mcp-api-key.json` |
 | OpenCode | `opencode.json` / `opencode-v2.json` | `opencode-api-key.json` / `opencode-v2-api-key.json` |
-| Codex | manifest (OAuth) | same manifest; it reads `NUDAY_API_KEY` when set |
+| Codex | `codex-mcp.json` (OAuth) | `codex-mcp-api-key.json` |
 
 For Claude Code that means swapping the `mcpServers` reference in
 `.claude-plugin/plugin.json` to `./claude-mcp-api-key.json`, or adding the

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "nuday-complete-readonly": {
+      "url": "https://app.nuday.ai/mcp/complete-readonly"
+    }
+  }
+}

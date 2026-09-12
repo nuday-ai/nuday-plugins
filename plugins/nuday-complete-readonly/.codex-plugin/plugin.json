@@ -1,6 +1,6 @@
 {
   "name": "nuday-complete-readonly",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Inspect NuDay resources with read-only MCP tools and the public skill catalog.",
   "author": {
     "name": "NuDay"
@@ -13,14 +13,7 @@
     "agent-skills"
   ],
   "skills": "./skills/",
-  "mcpServers": {
-    "nuday-complete-readonly": {
-      "type": "http",
-      "url": "https://app.nuday.ai/mcp/complete-readonly",
-      "auth": "oauth",
-      "bearer_token_env_var": "NUDAY_API_KEY"
-    }
-  },
+  "mcpServers": "./codex-mcp.json",
   "interface": {
     "displayName": "NuDay Complete (read-only)",
     "shortDescription": "NuDay skills and read-only tools.",

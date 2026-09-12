@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "nuday-complete": {
+      "url": "https://app.nuday.ai/mcp/complete",
+      "bearer_token_env_var": "NUDAY_API_KEY"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # NuDay Complete
 
-Version **1.0.1**
+Version **1.0.2**
 
 Updatable installs: Claude Code — `claude plugin marketplace add <manager>/plugins/marketplace.json`
 then `claude plugin install nuday-complete@nuday`; Codex — `codex plugin marketplace add nuday-ai/nuday-plugins`.
@@ -70,8 +70,8 @@ bundled beside the default configuration:
 - Claude Code: `claude-mcp-api-key.json`
 - Cursor: `mcp-api-key.json`
 - OpenCode: `opencode-api-key.json` or `opencode-v2-api-key.json`
-- Codex: its manifest supports `NUDAY_API_KEY` when the variable is present and
-  otherwise falls back to OAuth.
+- Codex: `codex-mcp-api-key.json` (the default `codex-mcp.json` the manifest
+  points at signs in through the browser)
 
 For a one-shell test:
 
