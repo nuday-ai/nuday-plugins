@@ -11,56 +11,16 @@ metadata:
 
 # Technical Documentation
 
-## Overview
-This skill helps create clear, comprehensive technical documentation.
+Write for a specific reader and task: decide who will read this (a new user, an API
+consumer, a maintainer) and what they need to do, and give them that first. Follow the
+structure and tone of the project's existing docs.
 
-## Documentation Types
+- A README lets a newcomer understand what the project is and get it running; setup
+  steps must be complete and copy-pasteable.
+- API docs give, per endpoint or function: what it does, its parameters, the response
+  shape with an example, errors, and auth requirements.
+- Architecture docs explain the components, how data flows between them, and why the
+  design is the way it is.
 
-### README Files
-Structure:
-1. **Title & Description**: What the project does
-2. **Quick Start**: Get running in 5 minutes
-3. **Installation**: Detailed setup instructions
-4. **Usage**: Common use cases with examples
-5. **Configuration**: Available options
-6. **API Reference**: If applicable
-7. **Contributing**: How to contribute
-8. **License**: Terms of use
-
-### API Documentation
-Include for each endpoint:
-- HTTP method and path
-- Description
-- Request parameters (path, query, body)
-- Response schema and examples
-- Error codes and meanings
-- Authentication requirements
-- Rate limiting info
-
-### Architecture Documentation
-- System overview diagram
-- Component descriptions
-- Data flow diagrams
-- Integration points
-- Deployment architecture
-- Security considerations
-
-## Writing Guidelines
-
-### Clarity
-- Use simple, direct language
-- Define technical terms
-- Include examples
-- Use consistent terminology
-
-### Structure
-- Use headings and sections
-- Include a table of contents for long docs
-- Use bullet points for lists
-- Add code blocks for examples
-
-### Maintenance
-- Keep documentation near code
-- Update with code changes
-- Include last-updated dates
-- Version documentation with releases
+Use examples that work against the current code, and define terms the reader may not
+know. Keep docs next to the code they describe so they change together.

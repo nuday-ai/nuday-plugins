@@ -11,60 +11,16 @@ metadata:
 
 # Data Analysis
 
-## Overview
-This skill enables comprehensive data analysis and insight extraction.
+Understand the data before drawing conclusions: its schema, source, time range and
+quality (missing values, duplicates, outliers, inconsistent formats). State any
+cleaning you do and why, since it changes the results.
 
-## Analysis Process
+Answer the question actually asked, back each claim with numbers, and say how
+confident you are: note sample sizes, and don't present correlation as causation. Use
+a chart when it shows a pattern more clearly than a table.
 
-### 1. Data Understanding
-- Review data schema and types
-- Identify key variables
-- Check data quality
-- Note data sources and collection methods
-
-### 2. Exploratory Data Analysis
-- Summary statistics (mean, median, std)
-- Distribution analysis
-- Missing value assessment
-- Outlier detection
-- Correlation analysis
-
-### 3. Data Cleaning
-- Handle missing values
-- Remove duplicates
-- Fix data types
-- Standardize formats
-- Address outliers
-
-### 4. Analysis Techniques
-
-#### Descriptive Analysis
-- Central tendency measures
-- Variability measures
-- Frequency distributions
-- Cross-tabulations
-
-#### Trend Analysis
-- Time series patterns
-- Seasonal variations
-- Growth rates
-- Moving averages
-
-#### Comparative Analysis
-- Group comparisons
-- A/B test results
-- Benchmark comparisons
-- Variance analysis
-
-### 5. Visualization
-- Choose appropriate chart types
-- Use clear labels and legends
-- Highlight key findings
-- Maintain consistent styling
-
-## Output Format
-Provide analysis results as:
-1. **Executive Summary**: Key findings in 2-3 sentences
-2. **Detailed Findings**: Data-backed insights
-3. **Visualizations**: Relevant charts/graphs
-4. **Recommendations**: Actionable next steps
+Present results as:
+1. **Summary**: the key findings in a few sentences
+2. **Findings**: each insight with the data behind it
+3. **Visualizations**: where they help
+4. **Recommendations**: concrete next steps

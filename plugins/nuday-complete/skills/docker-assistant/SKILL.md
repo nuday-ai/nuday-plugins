@@ -11,92 +11,15 @@ metadata:
 
 # Docker Assistant
 
-## Overview
-This skill helps create efficient Docker configurations and manage containers.
+Follow the project's existing Dockerfile and compose conventions where they exist. For
+new images:
+- Pin base images to a specific version tag, and prefer slim variants.
+- Order layers so rarely changing steps (installing dependencies) come before
+  frequently changing ones (copying source), and use multi-stage builds to keep build
+  tools out of the final image.
+- Run as a non-root user. Keep secrets out of the image: pass them at runtime, not
+  through ENV or build args, which are stored in the image layers.
+- Add a .dockerignore so local files, VCS data and secrets stay out of the build.
 
-## Dockerfile Best Practices
-
-### Multi-stage Build
-```dockerfile
-# Build stage
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-# Production stage
-FROM node:20-alpine AS runner
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
-EXPOSE 3000
-CMD ["node", "dist/index.js"]
-```
-
-### Optimization Tips
-- Use specific base image tags
-- Order layers by change frequency
-- Minimize layers with combined RUN commands
-- Use .dockerignore
-- Don't run as root
-
-### Security
-```dockerfile
-# Create non-root user
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-```
-
-## Docker Compose
-
-### Basic Structure
-```yaml
-version: '3.8'
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-    depends_on:
-      - db
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  db:
-    image: postgres:15-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
-    secrets:
-      - db_password
-
-volumes:
-  postgres_data:
-
-secrets:
-  db_password:
-    file: ./secrets/db_password.txt
-```
-
-## Common Commands
-```bash
-# Build and start
-docker compose up -d --build
-
-# View logs
-docker compose logs -f app
-
-# Execute command in container
-docker compose exec app sh
-
-# Clean up
-docker compose down -v
-```
+Use Docker Compose v2 syntax; the top-level `version:` key is obsolete and can be
+omitted.

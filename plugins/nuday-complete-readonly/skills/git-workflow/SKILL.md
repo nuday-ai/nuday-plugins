@@ -11,82 +11,16 @@ metadata:
 
 # Git Workflow
 
-## Overview
-This skill helps manage Git workflows and version control best practices.
+Follow the conventions this repository already uses rather than imposing a
+branching model or commit format. Before branching or committing, read
+`git log --oneline -20` and the branch list to see how the repo names
+branches and writes commit messages, and match them. A CONTRIBUTING file or
+commit template in the repo takes precedence.
 
-## Branching Strategy
+Some Git operations are hard to undo:
+- Never force-push to a shared branch (main, a release branch, or someone
+  else's branch). On your own branch, use `--force-with-lease`.
+- Don't rewrite history that has already been pushed and shared.
 
-### Git Flow
-- `main`: Production-ready code
-- `develop`: Integration branch
-- `feature/*`: New features
-- `release/*`: Release preparation
-- `hotfix/*`: Production fixes
-
-### Branch Naming
-```
-feature/AV-123-add-user-auth
-bugfix/AV-456-fix-login-error
-hotfix/AV-789-critical-security-fix
-```
-
-## Commit Messages
-
-### Format
-```
-type(scope): subject
-
-body (optional)
-
-footer (optional)
-```
-
-### Types
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Formatting
-- `refactor`: Code restructuring
-- `test`: Adding tests
-- `chore`: Maintenance
-
-### Examples
-```
-feat(auth): add OAuth2 support
-
-Implements OAuth2 authentication flow with:
-- Google provider
-- Token refresh logic
-- Session management
-
-Closes #123
-```
-
-## Common Operations
-
-### Rebasing
-```bash
-git fetch origin
-git rebase origin/main
-# Resolve conflicts if any
-git push --force-with-lease
-```
-
-### Squashing
-```bash
-git rebase -i HEAD~3
-# Change 'pick' to 'squash' for commits to combine
-```
-
-### Cherry-picking
-```bash
-git cherry-pick <commit-hash>
-```
-
-## Best Practices
-- Commit early and often
-- Keep commits focused and atomic
-- Write meaningful commit messages
-- Review before pushing
-- Never force push to shared branches
-- Use pull requests for collaboration
+Keep each commit to one logical change, and review `git diff --staged`
+before committing.

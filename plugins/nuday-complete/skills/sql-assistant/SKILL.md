@@ -11,68 +11,15 @@ metadata:
 
 # SQL Assistant
 
-## Overview
-This skill helps write efficient SQL queries and design database schemas.
+Find out which database and version the query targets, since syntax and optimizer
+behavior differ between PostgreSQL, MySQL, SQL Server, SQLite and others, and use the
+actual schema rather than guessing table and column names.
 
-## Query Writing
+Write readable queries: explicit column lists, meaningful aliases, CTEs for multi-step
+logic. Pass any user-supplied value as a parameter, never by string concatenation.
 
-### SELECT Queries
-```sql
-SELECT
-    column1,
-    column2,
-    aggregate_function(column3) as alias
-FROM table_name
-WHERE condition
-GROUP BY column1, column2
-HAVING aggregate_condition
-ORDER BY column1 DESC
-LIMIT 100;
-```
-
-### Best Practices
-- Use explicit column names (avoid SELECT *)
-- Alias complex expressions
-- Use table aliases for joins
-- Prefer JOINs over subqueries when possible
-- Use CTEs for complex queries
-
-## Query Optimization
-
-### Index Usage
-- Ensure WHERE columns are indexed
-- Consider composite indexes
-- Check index selectivity
-- Avoid functions on indexed columns
-
-### Performance Tips
-- Limit result sets early
-- Use EXPLAIN ANALYZE
-- Avoid SELECT DISTINCT when possible
-- Optimize JOINs (smaller table first)
-- Use appropriate data types
-
-## Common Patterns
-
-### Window Functions
-```sql
-SELECT
-    *,
-    ROW_NUMBER() OVER (PARTITION BY category ORDER BY date DESC) as rn
-FROM table_name;
-```
-
-### CTEs
-```sql
-WITH ranked_data AS (
-    SELECT *, ROW_NUMBER() OVER (...) as rn
-    FROM table_name
-)
-SELECT * FROM ranked_data WHERE rn = 1;
-```
-
-## Schema Design
-- Normalize to 3NF typically
-- Denormalize for read-heavy workloads
-- Use appropriate constraints
-- Consider partitioning for large tables
+For performance, reason from the query plan (EXPLAIN / EXPLAIN ANALYZE) and the
+existing indexes rather than rules of thumb, and explain the trade-off of any index you
+suggest. Before running anything that changes data (UPDATE, DELETE, schema changes),
+show which rows it will affect, for example with a SELECT using the same WHERE
+clause.

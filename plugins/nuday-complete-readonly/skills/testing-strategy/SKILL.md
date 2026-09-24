@@ -11,57 +11,16 @@ metadata:
 
 # Testing Strategy
 
-## Overview
-This skill helps create comprehensive testing strategies and write effective tests.
+Match the project's existing tests: find how current tests are organized, named and
+run (framework, fixtures, mocking style, where test files live) and write new ones
+the same way. Don't introduce a new framework or a coverage target unless asked.
 
-## Test Types
+Test behavior through public interfaces rather than implementation details, so tests
+survive refactoring. Cover what matters most: the business logic, and the edge and
+error cases the change touches. A few meaningful tests beat many trivial ones. Keep
+tests independent of each other and of run order, and make each failure point at what
+broke.
 
-### Unit Tests
-- Test individual functions/methods in isolation
-- Mock external dependencies
-- Aim for high coverage of business logic
-- Follow the AAA pattern: Arrange, Act, Assert
-
-### Integration Tests
-- Test component interactions
-- Verify API contracts
-- Test database operations
-- Check external service integrations
-
-### End-to-End Tests
-- Test complete user workflows
-- Simulate real user behavior
-- Verify critical business paths
-- Keep focused on happy paths and key error scenarios
-
-## Best Practices
-
-### Test Structure
-```
-describe('ComponentName', () => {
-  describe('methodName', () => {
-    it('should do expected behavior when given condition', () => {
-      // Arrange
-      // Act
-      // Assert
-    });
-  });
-});
-```
-
-### Naming Conventions
-- Use descriptive test names
-- Start with "should" or "when"
-- Describe the expected outcome
-
-### Coverage Guidelines
-- Aim for 80%+ coverage on business logic
-- Focus on critical paths
-- Don't test trivial code
-- Cover edge cases and error conditions
-
-## Test Data Management
-- Use factories for test data
-- Keep test data realistic
-- Clean up after tests
-- Avoid test interdependencies
+When asked for a strategy rather than tests, say which behaviors belong at the unit,
+integration and end-to-end levels for this system, and why. Run the tests you write
+when you can, and report the result.

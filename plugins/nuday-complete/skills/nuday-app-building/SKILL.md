@@ -50,15 +50,51 @@ You have three MCP servers:
 `nuday_scaffold_app` also knows two **starters** that deploy as `python-asgi`:
 `mcp` (a hosted MCP server with bearer validation — needs a service
 principal, pass `service_principal_id: "__new__"`) and `python-postgres`
-(a team-notes app on the per-app Postgres — its returned config includes
-`release_command` and a `datastores` entry; the app exits at start without
-that datastore, so pass both through unchanged).
+(a team-notes app on the per-app Postgres that already implements the
+multi-user pattern — identity from the headers, `principals` +
+`user_settings` tables, per-user settings routes, owner-or-admin delete —
+its returned config includes `release_command` and a `datastores` entry;
+the app exits at start without that datastore, so pass both through
+unchanged). Scaffold it when the app needs per-user data and build on it;
+the pattern itself is explained in [[nuday-app-multi-user]].
 
 **Every dynamic runtime MUST bind `0.0.0.0:$PORT`** (read `process.env.PORT`
 / let the launcher pass `$PORT`). The app filesystem is **ephemeral** —
 wiped on every restart. Keep state in the app's own Postgres **datastore**
 (below) or an external service reached over HTTPS; the pod can only egress
 to the internet on 80/443 plus its own datastore on 5432.
+
+## Before you build — confirm with the user
+Confirm these once, in a single short message, before writing any file.
+If the user says **skip the checklist**, or the request already answers
+every item, do not ask — proceed with sensible defaults and state the
+assumptions you made in your first reply.
+
+1. **Name + workspace** — app name (unique per tenancy) and tenant vs
+   personal workspace.
+2. **Runtime** — runtime, `manifest_path`, `entrypoint` (or `command`),
+   and that the server binds `0.0.0.0:$PORT`.
+3. **Source path** — a subfolder such as `apps/<name>`, never the
+   workspace root.
+4. **Data** — does anything need to survive a restart? If yes: the
+   Postgres `datastores` block plus an idempotent `release_command` that
+   creates/migrates tables. No datastore means every restart starts empty.
+5. **Users** — more than one signed-in person, per-user settings, "who did
+   this", or admin-only actions? Then follow [[nuday-app-multi-user]]
+   (identity headers, `principals` + `user_settings` tables, roles).
+6. **Secrets** — the `env_refs` names the code reads; collect the values
+   and set them with `nuday_set_app_secret` before publishing.
+7. **Background work** — in-process cron, queues or websockets need
+   `scale_to_zero: false`, `replicas: 1` (or a lease table for more), and
+   must tolerate being restarted at any time.
+8. **Build** — a `build_command` runs inside the pod on every start; keep
+   it light (no `tsc` type-checks; transpile only) and ask for memory when
+   it is heavy.
+9. **Health** — `health_path` (default `/`) must answer 2xx/3xx with no
+   login and no database dependency at boot.
+10. **Done means** — `nuday_get_app_status` reports `running`, the live
+    URL is in your final message, and you tell the user how to iterate
+    (edit files → `nuday_deploy_app`).
 
 ## Workflow
 
@@ -90,6 +126,11 @@ never at its root. Two options:
   `read_file`/`grep` to inspect existing files before editing, and
   `web_search` + `web_fetch` to pull current framework docs. Python
   dependencies must have prebuilt wheels (no compilers in the image).
+- **File economy.** Every file costs one `write_file` call: prefer a
+  handful of complete files (one server module, one static `index.html`
+  + `app.js`, one `release.py`/`release.js`, the manifest) over many small
+  ones, write each file once in full, then `edit_file` to fix — never
+  re-write a whole file to change a line.
 
 ### 4. Create the app
 Call `nuday_create_app` (pass the scaffold's returned config verbatim):
@@ -112,7 +153,11 @@ Other fields: `command` (explicit start command, overrides the runtime's),
 every pod start), `release_command` (e.g. `python release.py` or
 `npx prisma migrate deploy`, runs before start on every pod start — keep it
 idempotent), `mcp_enabled` + `mcp_path` + `service_principal_id` for a
-hosted MCP server, and `datastores`.
+hosted MCP server, `health_path` (readiness probe; default `/`), and
+`datastores`. Keep `replicas: 1` unless the app is stateless and holds no
+in-process timers — cron/queues on 2+ replicas double-fire without a lease
+table — and set `scale_to_zero: false` whenever background work must keep
+running while nobody visits.
 
 **Datastore (per-app Postgres).** Pass
 `"datastores": [{"kind": "postgres", "name": "db", "env": "DATABASE_URL",
@@ -150,6 +195,12 @@ becomes ready reports the failing probe / restarts in `reason` and moves to
   with `nuday_update_app`, then `nuday_deploy_app` to roll it out.
 - Tail `nuday_get_app_logs` to debug a crash loop or `deploy_failed` —
   failed dependency installs and release commands show up there.
+- The only way to run an app is to publish it: do not try to execute its
+  source with a code sandbox or a local shell (the sandbox is often not
+  configured, and the app's Postgres and identity headers only exist in
+  the deployed pod). Review the code, publish, read the status and logs.
+- Before `edit_file`, `read_file` the current content — the `find` text
+  must match exactly, and your earlier draft may not be what is on disk.
 - A hosted MCP app reporting "no service principal assigned": call
   `nuday_update_app` with `service_principal_id: "__new__"` and redeploy.
 - `nuday_unpublish_app` / `nuday_stop_app` scale the workload to zero.
@@ -168,7 +219,11 @@ deploy.
 - Scaffold first when unsure of a runtime's layout, then customize.
 - The platform login sits in front of every app; read the signed-in user
   from the `X-Forwarded-User` / `X-Forwarded-Preferred-Username` /
-  `X-Forwarded-Groups` request headers instead of implementing auth.
+  `X-Forwarded-Groups` request headers instead of implementing auth (never
+  `X-Auth-Request-*` — those are response headers the app never sees).
+  Per-user tables, roles and rosters: [[nuday-app-multi-user]].
+- `DATABASE_URL` is injected by the datastore — never set it as a secret
+  and never hardcode a database host.
 - After publishing, always confirm `nuday_get_app_status` reached `running`
   and report the live URL to the user.
 - Use `web_search`/`web_fetch` to ground framework choices in current docs.
