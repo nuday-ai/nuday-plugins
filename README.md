@@ -1,6 +1,6 @@
 # NuDay plugins
 
-Version **1.0.3** — rendered from the NuDay Manager at `https://app.nuday.ai`.
+Version **1.0.4** — rendered from the NuDay Manager at `https://app.nuday.ai`.
 Do not edit by hand: the publish workflow in `nuday-manager` overwrites this
 repository whenever the plugin content changes.
 
