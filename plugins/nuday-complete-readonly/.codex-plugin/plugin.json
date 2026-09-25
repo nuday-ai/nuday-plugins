@@ -1,6 +1,6 @@
 {
   "name": "nuday-complete-readonly",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Inspect NuDay resources with read-only MCP tools and the public skill catalog.",
   "author": {
     "name": "NuDay"
@@ -15,7 +15,7 @@
   "skills": "./skills/",
   "mcpServers": "./codex-mcp.json",
   "interface": {
-    "displayName": "NuDay Complete (read-only)",
+    "displayName": "NuDay Plugin (read-only)",
     "shortDescription": "NuDay skills and read-only tools.",
     "longDescription": "Inspect NuDay resources with read-only MCP tools and the public skill catalog.",
     "developerName": "NuDay",

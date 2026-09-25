@@ -1,6 +1,6 @@
 # NuDay plugins
 
-Version **1.0.4** — rendered from the NuDay Manager at `https://app.nuday.ai`.
+Version **1.0.5** — rendered from the NuDay Manager at `https://app.nuday.ai`.
 Do not edit by hand: the publish workflow in `nuday-manager` overwrites this
 repository whenever the plugin content changes.
 
@@ -10,7 +10,7 @@ repository whenever the plugin content changes.
 codex plugin marketplace add nuday-ai/nuday-plugins
 ```
 
-Then install **NuDay Complete** (or the read-only variant) from the Plugin
+Then install **NuDay Plugin** (or the read-only variant) from the Plugin
 Directory and sign in through your browser when Codex asks
 (`codex mcp login nuday-complete` if it does not).
 

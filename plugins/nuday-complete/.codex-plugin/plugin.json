@@ -1,6 +1,6 @@
 {
   "name": "nuday-complete",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Build, test, deploy, and operate on NuDay with the complete platform skill catalog and aggregate MCP server.",
   "author": {
     "name": "NuDay"
@@ -15,7 +15,7 @@
   "skills": "./skills/",
   "mcpServers": "./codex-mcp.json",
   "interface": {
-    "displayName": "NuDay Complete",
+    "displayName": "NuDay Plugin",
     "shortDescription": "NuDay skills and the complete MCP toolset.",
     "longDescription": "Create and manage agents, skills, tools, apps, evaluations, workspaces, knowledge bases, and connected services through NuDay.",
     "developerName": "NuDay",

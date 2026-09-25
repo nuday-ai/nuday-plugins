@@ -1,4 +1,4 @@
-# Install NuDay Complete
+# Install NuDay Plugin
 
 These instructions are for the person installing the plugin. The `skills/`
 directory supplies instructions to the AI; client manifests configure the
@@ -37,7 +37,7 @@ See [Claude plugin loading](https://code.claude.com/docs/en/plugins) and
 ## Codex
 
 1. Add the public marketplace: `codex plugin marketplace add nuday-ai/nuday-plugins`,
-   then enable **NuDay Complete** (or **NuDay Complete (read-only)**) from the
+   then enable **NuDay Plugin** (or **NuDay Plugin (read-only)**) from the
    Plugin Directory. NuDay Desktop can do this for you from its Extensions page.
 2. The manifest points Codex at `codex-mcp.json`, which registers the NuDay MCP
    server for browser sign-in. Use the server's **Authenticate** control, or run

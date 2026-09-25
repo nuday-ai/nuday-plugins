@@ -1,6 +1,6 @@
 {
   "name": "nuday-complete-readonly",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Inspect NuDay resources with read-only MCP tools and the public skill catalog.",
   "author": {
     "name": "NuDay"

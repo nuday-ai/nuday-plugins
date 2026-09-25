@@ -1,12 +1,12 @@
-# NuDay Complete
+# NuDay Plugin
 
-Version **1.0.4**
+Version **1.0.5**
 
 Updatable installs: Claude Code — `claude plugin marketplace add <manager>/plugins/marketplace.json`
 then `claude plugin install nuday-complete@nuday`; Codex — `codex plugin marketplace add nuday-ai/nuday-plugins`.
 This ZIP is the same package for clients without a marketplace.
 
-NuDay Complete packages the public NuDay platform skills with the aggregate
+NuDay Plugin packages the public NuDay platform skills with the aggregate
 NuDay MCP endpoint. The same plugin directory supports Claude Code, Codex, and
 Cursor. OpenCode uses the bundled `opencode.json` plus the same `skills/`
 directory.
