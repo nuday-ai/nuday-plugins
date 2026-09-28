@@ -1,6 +1,6 @@
 {
   "name": "nuday-complete",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Build, test, deploy, and operate on NuDay with the complete platform skill catalog and aggregate MCP server.",
   "author": {
     "name": "NuDay"

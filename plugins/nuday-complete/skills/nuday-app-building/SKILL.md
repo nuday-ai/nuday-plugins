@@ -190,7 +190,14 @@ becomes ready reports the failing probe / restarts in `reason` and moves to
 
 ### 7. Iterate + debug
 - Change source with `write_file`/`edit_file`, then `nuday_deploy_app`
-  (re-stage + redeploy) or `nuday_publish_app`.
+  (re-stage + redeploy) or `nuday_publish_app`. A redeploy is a rolling
+  update: the previous version keeps serving, and status reads `deploying`
+  with "rolling out a new version" in `reason` until the new pod is ready.
+  Only `running` after that means the new version is live.
+- A deploy that installs dependencies takes one to a few minutes. While
+  `deploy_status` is `deploying` and `reason` has not changed, polling
+  again will not tell you anything new; read `nuday_get_app_logs` when
+  `reason` changes, the status fails, or you want to see install progress.
 - Change config (runtime, port, env_refs, replicas, commands, datastore)
   with `nuday_update_app`, then `nuday_deploy_app` to roll it out.
 - Tail `nuday_get_app_logs` to debug a crash loop or `deploy_failed` —

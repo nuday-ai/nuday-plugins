@@ -1,6 +1,6 @@
 # NuDay Plugin
 
-Version **1.0.5**
+Version **1.0.6**
 
 Updatable installs: Claude Code — `claude plugin marketplace add <manager>/plugins/marketplace.json`
 then `claude plugin install nuday-complete-readonly@nuday`; Codex — `codex plugin marketplace add nuday-ai/nuday-plugins`.
